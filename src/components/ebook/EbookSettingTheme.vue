@@ -22,7 +22,7 @@
                 this.setDefaultTheme(para)
                 this.currentBook.rendition.themes.select(para)
                 saveTheme(this.fileName, para)
-                // this.initGlobalStyle()
+                this.initGlobalStyle()
             }
         }
     }

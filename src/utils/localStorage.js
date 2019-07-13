@@ -67,3 +67,20 @@ export function getTheme(fileName) {
 export function saveTheme(fileName, theme) {
     setBookObject(fileName, 'theme', theme)
 }
+//当前显示的书页内容
+export function getLocation(fileName) {
+    return getBookObject(fileName, 'location')
+}
+
+export function saveLocation(fileName, location) {
+    setBookObject(fileName, 'location', location)
+}
+
+//获取阅读时间
+export function getReadTime(fileName) {
+    return getBookObject(fileName, 'readTime')
+}
+
+export function saveReadTime(fileName, readTime) {
+    return setBookObject(fileName, 'readTime', readTime)
+}

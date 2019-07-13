@@ -11,12 +11,24 @@ const book = {
     fontFamilyVisible: false,
     defaultTheme: null,
     progress: 0,
-    bookAvaliable: false
+    section: 0,
+    //电子书资源获得后进行分页计算后为true
+    bookAvaliable: false,
+    //电子书封面URL图片
+    cover: null,
+    //电子书的各种元信息
+    metadata: null,
+    //图书目录信息
+    navigation: null,
+    //touchmoveY轴偏移量
+    offsetY: 0,
+    //当前页是否为书签页
+    isBookmark: null
   },
   mutations: {
     set_currentBook(state, payload) {
       state.currentBook = payload
-  },
+    },
     set_fileName(state, payload) {
         state.fileName = payload
     },
@@ -28,22 +40,40 @@ const book = {
     },
     set_defaultFontSize(state, payload) {
       state.defaultFontSize = payload
-  },
+    },
     set_defaultFontFamily(state, payload) {
       state.defaultFontFamily = payload
-  },
+    },
     set_fontFamilyVisible(state, payload) {
       state.fontFamilyVisible = payload
-  },
+    },
     set_defaultTheme(state, payload) {
       state.defaultTheme = payload
-  },
+    },
     set_progress(state, payload) {
       state.progress = payload
-  },
+    },
     set_bookAvaliable(state, payload) {
       state.bookAvaliable = payload
-  }
+    },
+    set_section(state, payload) {
+      state.section = payload
+    },
+    set_cover(state, payload) {
+      state.cover = payload
+    },
+    set_metadata(state, payload) {
+      state.metadata = payload
+    },
+    set_navigation(state, payload) {
+      state.navigation = payload
+    },
+    set_offsetY(state, payload) {
+      state.offsetY = payload
+    },
+    set_isBookmark(state, payload) {
+      state.isBookmark = payload
+    }
   },
   actions: {
     setCurrentBook(context, payload) {
@@ -75,6 +105,24 @@ const book = {
     },
     setBookAvaliable(context, payload) {
       return context.commit('set_bookAvaliable', payload)
+    },
+    setSection(context, payload) {
+      return context.commit('set_section', payload)
+    },
+    setCover(context, payload) {
+      return context.commit('set_cover', payload)
+    },
+    setMetadata(context, payload) {
+      return context.commit('set_metadata', payload)
+    },
+    setNavigation(context, payload) {
+      return context.commit('set_navigation', payload)
+    },
+    setOffsetY(context, payload) {
+      return context.commit('set_offsetY', payload)
+    },
+    setIsBookmark(context, payload) {
+      return context.commit('set_isBookmark', payload)
     }
   }
 }
