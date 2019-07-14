@@ -32,20 +32,6 @@
         updated() {
             this.updateProgressBg()
         },
-        computed: {
-            getSectionName() {
-                // if (this.section) {
-                //     const sectionInfo = this.currentBook.section(this.section)
-                //     if (sectionInfo && sectionInfo.href && this.currentBook && this.currentBook.navigation) {
-                //         return this.currentBook.navigation.get(sectionInfo.href).label
-                //     }
-                //     return ''
-                // } else {
-                //     return ''
-                // }
-                return this.section ? this.navigation[this.section].label : ''
-            }
-        },
         methods: {
             //放下旋钮时事件
             onProgressChange(progress) {
@@ -113,9 +99,9 @@
         left: 0;
         width: 100%;
         height: px2rem(90);
-        z-index: 1;
+        // z-index: 1;
         box-shadow: 0 px2rem(-8) px2rem(8) rgba(0, 0, 0, .15);
-        background: white;
+        // background: white;
         .setting-progress {
             position: relative;
             width: 100%;

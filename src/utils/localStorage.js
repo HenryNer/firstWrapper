@@ -84,3 +84,12 @@ export function getReadTime(fileName) {
 export function saveReadTime(fileName, readTime) {
     return setBookObject(fileName, 'readTime', readTime)
 }
+
+//书签数组，里面存放书签对象包含start.cfi以及书签标记的当前页的内容
+export function getBookmark(fileName) {
+    return getBookObject(fileName, 'bookmark')
+}
+
+export function saveBookmark(fileName, bookmark) {
+    setBookObject(fileName, 'bookmark', bookmark)
+}

@@ -59,7 +59,7 @@ export default {
         bottom: 0;
         width: 100%;
         z-index: 3;
-        background: white;
+        // background: white;
         box-shadow: 0 px2rem(-4) px2rem(6) rgba(0, 0, 0, .1);
         .ebook-popup-title {
             position: relative;

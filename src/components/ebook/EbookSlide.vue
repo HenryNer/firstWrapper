@@ -24,8 +24,9 @@
 
 <script>
     import ebookMixin from '../../utils/mixin'
-    import EbookSlideContents from './EbookSlideContents'
-    import EbookLoading from './EbookLoading'
+    import EbookSlideContents from './EbookSlideContents.vue'
+    import EbookSlideBookmark from './EbookSlideBookmark.vue'
+    import EbookLoading from './EbookLoading.vue'
 
     export default {
         mixins: [ebookMixin],
@@ -36,7 +37,7 @@
             return {
                 currentTab: 1,
                 content: EbookSlideContents,
-                bookmark: null
+                bookmark: EbookSlideBookmark
             }
         },
         methods: {
@@ -53,7 +54,7 @@
         position: absolute;
         left: 0;
         top: 0;
-        z-index: 10;
+        z-index: 2;
         display: flex;
         width: 100%;
         height: 100%;

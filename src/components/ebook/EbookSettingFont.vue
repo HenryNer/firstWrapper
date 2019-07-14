@@ -63,9 +63,9 @@
         left: 0;
         width: 100%;
         height: px2rem(90);
-        z-index: 1;
+        // z-index: 1;
         box-shadow: 0 px2rem(-8) px2rem(8) rgba(0, 0, 0, .15);
-        background: white;
+        // background: white;
         .setting-font-size {
             flex: 2;
             display: flex;

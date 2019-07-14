@@ -1,12 +1,15 @@
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import { themeList, addCss, removeAllCss, getReadTimeByMinute } from './book'
-import { saveLocation } from './localStorage'
+import { saveLocation, getBookmark } from './localStorage'
 
 const ebookMixin = {
     computed: {
         ...mapState('book', ['currentBook','fileName','menuVisible','settingVisible','defaultFontSize','defaultFontFamily','fontFamilyVisible','defaultTheme','progress','bookAvaliable','section','cover','metadata','navigation','offsetY','isBookmark']),
         themeList() {
             return themeList(this)
+        },
+        getSectionName() {
+            return this.section ? this.navigation[this.section].label : ''
         }
     },
     methods: {
@@ -32,7 +35,7 @@ const ebookMixin = {
                     addCss(`${process.env.VUE_APP_RES_URL}/theme/theme_default.css`)
             }
         },
-        //更新进度百分比以及精确缓存电子书内容的定位
+        //更新进度百分比，精确缓存电子书内容的定位，判断渲染时页面是否为书签页
         refreshLocation(isSettingProgress) {
             const currentLocation = this.currentBook.rendition.currentLocation()
             if (currentLocation && currentLocation.start && currentLocation.start.cfi) {
@@ -43,6 +46,16 @@ const ebookMixin = {
                 }
                 this.setSection(currentLocation.start.index)
                 saveLocation(this.fileName, startCfi)
+                const bookmark = getBookmark(this.fileName)
+                if (bookmark) {
+                    if (bookmark.some(item => item.cfi === startCfi)) {
+                        this.setIsBookmark(true)
+                    } else {
+                        this.setIsBookmark(false)
+                    }
+                } else {
+                    this.setIsBookmark(false)
+                }
             }
         },
         //实现display电子书复用(isSettingProgress判断是否为settingProgress组件传入，如果是则在refreshLocation中不会重复更新porgress)

@@ -1,6 +1,6 @@
 <template>
     <transition name="slide-down">
-        <div class="title-wrapper" v-show="menuVisible">
+        <div class="title-wrapper" v-show="menuVisible" ref="titleWrapper">
             <div class="left">
                 <span class="icon-back" @click="back()"></span>
             </div>
@@ -42,7 +42,7 @@ export default {
         display: flex;
         width: 100%;
         height: px2rem(48);
-        background: white;
+        // background: white;
         box-shadow: 0 px2rem(8) px2rem(8) rgba(0,0,0,.15);
         font-size: px2rem(20);
         .left {

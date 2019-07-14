@@ -4,6 +4,8 @@
         <ebook-title></ebook-title>
         <ebook-menu></ebook-menu>
         <ebook-bookmark></ebook-bookmark>
+        <ebook-header></ebook-header>
+        <ebook-footer></ebook-footer>
     </div>
 </template>
 
@@ -12,6 +14,8 @@ import EbookReader from '../../components/ebook/EbookReader.vue'
 import EbookTitle from '../../components/ebook/EbookTitle.vue'
 import EbookMenu from '../../components/ebook/EbookMenu.vue'
 import EbookBookmark from '../../components/ebook/EbookBookmark.vue'
+import EbookHeader from '../../components/ebook/EbookHeader.vue'
+import EbookFooter from '../../components/ebook/EbookFooter.vue'
 import ebookMixin from '../../utils/mixin'
 import { getReadTime, saveReadTime } from '../../utils/localStorage'
 
@@ -21,7 +25,9 @@ export default {
         EbookReader,
         EbookTitle,
         EbookMenu,
-        EbookBookmark
+        EbookBookmark,
+        EbookHeader,
+        EbookFooter
     },
     watch: {
         //实现下拉效果
