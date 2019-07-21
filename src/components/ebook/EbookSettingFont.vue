@@ -29,7 +29,7 @@
 </template>
 
 <script>
-    import ebookMixin from '../../utils/mixin'
+    import { ebookMixin } from '../../utils/mixin'
     import { fontSizeList } from '../../utils/book'
     import { saveFontSize } from '../../utils/localStorage'
 

@@ -25,7 +25,7 @@
 </template>
 
 <script>
-    import ebookMixin from '../../utils/mixin'
+    import { ebookMixin } from '../../utils/mixin'
     import EbookSettingFont from './EbookSettingFont.vue'
     import EbookSettingFontPopup from './EbookSettingFontPopup.vue'
     import EbookSettingTheme from './EbookSettingTheme.vue'

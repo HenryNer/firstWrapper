@@ -16,11 +16,11 @@ import EbookMenu from '../../components/ebook/EbookMenu.vue'
 import EbookBookmark from '../../components/ebook/EbookBookmark.vue'
 import EbookHeader from '../../components/ebook/EbookHeader.vue'
 import EbookFooter from '../../components/ebook/EbookFooter.vue'
-import ebookMixin from '../../utils/mixin'
+import { ebookMixin, publicMixin } from '../../utils/mixin'
 import { getReadTime, saveReadTime } from '../../utils/localStorage'
 
 export default {
-    mixins: [ebookMixin],
+    mixins: [ebookMixin, publicMixin],
     components: {
         EbookReader,
         EbookTitle,

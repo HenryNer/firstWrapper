@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import ebookMixin from '../../utils/mixin'
+import { ebookMixin } from '../../utils/mixin'
 import { fontFamilyList } from '../../utils/book'
 import { saveFontFamily } from '../../utils/localStorage'
 

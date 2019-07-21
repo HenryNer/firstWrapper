@@ -2,9 +2,19 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import { themeList, addCss, removeAllCss, getReadTimeByMinute } from './book'
 import { saveLocation, getBookmark } from './localStorage'
 
-const ebookMixin = {
+export const publicMixin = {
     computed: {
-        ...mapState('book', ['currentBook','fileName','menuVisible','settingVisible','defaultFontSize','defaultFontFamily','fontFamilyVisible','defaultTheme','progress','bookAvaliable','section','cover','metadata','navigation','offsetY','isBookmark']),
+        ...mapState(['offsetY'])
+    },
+    methods: {
+        ...mapMutations(['set_offsetY']),
+        ...mapActions(['setOffsetY'])
+    }
+}
+
+export const ebookMixin = {
+    computed: {
+        ...mapState('book', ['currentBook','fileName','menuVisible','settingVisible','defaultFontSize','defaultFontFamily','fontFamilyVisible','defaultTheme','progress','bookAvaliable','section','cover','metadata','navigation','isBookmark']),
         themeList() {
             return themeList(this)
         },
@@ -13,8 +23,8 @@ const ebookMixin = {
         }
     },
     methods: {
-        ...mapMutations('book', ['set_currentBook','set_fileName','set_menuVisible','set_settingVisible','set_defaultFontSize','set_defaultFontFamily','set_fontFamilyVisible','set_defaultTheme','set_progress','set_bookAvaliable','set_section','set_cover','set_metadata','set_navigation','set_offsetY','set_isBookmark']),
-        ...mapActions('book',['setCurrentBook','setFileName','setMenuVisible','setSettingVisible','setDefaultFontSize','setDefaultFontFamily','setFontFamilyVisible','setDefaultTheme','setProgress','setBookAvaliable','setSection','setCover','setMetadata','setNavigation','setOffsetY','setIsBookmark']),
+        ...mapMutations('book', ['set_currentBook','set_fileName','set_menuVisible','set_settingVisible','set_defaultFontSize','set_defaultFontFamily','set_fontFamilyVisible','set_defaultTheme','set_progress','set_bookAvaliable','set_section','set_cover','set_metadata','set_navigation','set_isBookmark']),
+        ...mapActions('book',['setCurrentBook','setFileName','setMenuVisible','setSettingVisible','setDefaultFontSize','setDefaultFontFamily','setFontFamilyVisible','setDefaultTheme','setProgress','setBookAvaliable','setSection','setCover','setMetadata','setNavigation','setIsBookmark']),
         initGlobalStyle() {
             removeAllCss()
             //加载内容外的主题样式
@@ -83,4 +93,21 @@ const ebookMixin = {
     }
 }
 
-export default ebookMixin
+export const storeHomeMixin = {
+    computed: {
+        ...mapState('store',['hotSearchOffsetY','flapCardVisible','isEditMode','shelfList','shelfSelected','shelfTitleVisible'])
+    },
+    methods: {
+        ...mapActions('store',['setHotSearchOffsetY','setFlapCardVisible','setIsEditMode','setShelfList','setShelfSelected','setShelfTitleVisible']),
+        showBookDetail(book) {
+            //路由跳转
+            this.$router.push({
+                path: '/store/detail',
+                query: {
+                    fileName: book.fileName,
+                    category: book.categoryText
+                }
+            })
+        }
+    }
+}

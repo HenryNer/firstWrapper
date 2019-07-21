@@ -7,12 +7,12 @@
 
 <script>
 import Epub from 'epubjs'
-import ebookMixin from '../../utils/mixin'
+import { ebookMixin, publicMixin } from '../../utils/mixin'
 import { flatten } from '../../utils/book'
 import { getFontFamily, saveFontFamily, getFontSize, saveFontSize, getTheme, saveTheme, getLocation } from '../../utils/localStorage'
 
 export default {
-    mixins: [ebookMixin],
+    mixins: [ebookMixin, publicMixin],
     methods: {
         /**
          * 1 - 鼠标进入 2 - 鼠标进入后移动  3 - 鼠标从移动状态松手  4 - 鼠标还原
@@ -69,6 +69,7 @@ export default {
             this.firstOffsetY = 0
             this.setOffsetY(0)
         },
+        //这里为了实现书签功能，滑动翻页效果改为点击翻页效果
         onMaskClick(e) {
             if (this.mouseState && (this.mouseState === 2 || this.mouseState === 3)) {
                 return

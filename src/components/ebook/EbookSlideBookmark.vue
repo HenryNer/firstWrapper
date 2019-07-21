@@ -13,7 +13,7 @@
 </template>
 
 <script>
-    import ebookMixin from '../../utils/mixin'
+    import { ebookMixin } from '../../utils/mixin'
     import Scroll from '../common/Scroll.vue'
     import { getBookmark } from '../../utils/localStorage'
 

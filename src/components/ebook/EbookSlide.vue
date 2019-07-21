@@ -23,7 +23,7 @@
 </template>
 
 <script>
-    import ebookMixin from '../../utils/mixin'
+    import { ebookMixin } from '../../utils/mixin'
     import EbookSlideContents from './EbookSlideContents.vue'
     import EbookSlideBookmark from './EbookSlideBookmark.vue'
     import EbookLoading from './EbookLoading.vue'

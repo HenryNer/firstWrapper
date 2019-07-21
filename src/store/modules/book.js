@@ -20,8 +20,6 @@ const book = {
     metadata: null,
     //图书目录信息
     navigation: null,
-    //touchmoveY轴偏移量
-    offsetY: 0,
     //当前页是否为书签页
     isBookmark: null
   },
@@ -68,9 +66,6 @@ const book = {
     set_navigation(state, payload) {
       state.navigation = payload
     },
-    set_offsetY(state, payload) {
-      state.offsetY = payload
-    },
     set_isBookmark(state, payload) {
       state.isBookmark = payload
     }
@@ -80,7 +75,7 @@ const book = {
       return context.commit('set_currentBook', payload)
     },
     setFileName(context, payload) {
-        return context.commit('set_fileName', payload)
+      return context.commit('set_fileName', payload)
     },
     setMenuVisible(context, payload) {
       return context.commit('set_menuVisible', payload)
@@ -117,9 +112,6 @@ const book = {
     },
     setNavigation(context, payload) {
       return context.commit('set_navigation', payload)
-    },
-    setOffsetY(context, payload) {
-      return context.commit('set_offsetY', payload)
     },
     setIsBookmark(context, payload) {
       return context.commit('set_isBookmark', payload)

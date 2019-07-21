@@ -7,7 +7,7 @@
             <div class="ebook-boomark-text">{{text}}</div>
         </div>
         <div class="ebook-bookmark-icon-wrapper">
-            <bookmark :color="color" :width="15" :height="40" :style="isFixed ? fixedStyle : {}"></bookmark>
+            <bookmark :color="color" :width="15" :height="35" :style="isFixed ? fixedStyle : {}"></bookmark>
         </div>
     </div>
 </template>
@@ -15,11 +15,11 @@
 <script>
     import Bookmark from '../common/Bookmark.vue'
     import { realPx, px2rem } from '../../utils/utils'
-    import ebookMixin from '../../utils/mixin'
+    import { ebookMixin, publicMixin } from '../../utils/mixin'
     import { getBookmark, saveBookmark } from '../../utils/localStorage'
 
     export default {
-        mixins: [ebookMixin],
+        mixins: [ebookMixin, publicMixin],
         components: {
             Bookmark
         },
@@ -51,12 +51,16 @@
                     return
                 }
                 if (y >= this.height && y < this.threshold) {
+                    //状态2
                     this.beforeThreshold(y)
                 } else if (y >= this.threshold) {
+                    //状态3
                     this.afterThreshold(y)
                 } else if (y > 0 && y < this.height) {
+                    //状态1
                     this.beforeHeight()
                 } else if (y === 0) {
+                    //归位
                     this.restore()
                 }
             },
@@ -122,7 +126,6 @@
                     this.color = 'white'
                     this.isFixed = false
                 }
-                this.isFixed = false
             },
             beforeThreshold(y) {
                 //状态2：超过书签高度，未到达临界状态
