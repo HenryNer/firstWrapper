@@ -30,6 +30,7 @@
             scrollTo(x, y) {
                 this.$refs.scrollWrapper.scrollTo(x, y) //这里的scrollTo为dom方法，滚动到指定位置
             },
+            //更新滚动组件的位置
             refresh() {
                 if (this.$refs.scrollWrapper) {
                     this.$refs.scrollWrapper.style.height = window.innerHeight - realPx(this.top) - realPx(this.bottom) + 'px'    

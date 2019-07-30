@@ -6,7 +6,9 @@ import i18n from './lang'
 import VueLazyload from 'vue-lazyload'
 import './assets/styles/icon.css'
 import './assets/styles/global.scss'
-import './mock'
+import './utils/boost'
+import './utils/create-api'
+// import './mock'
 
 Vue.config.productionTip = false
 Vue.use(VueLazyload)

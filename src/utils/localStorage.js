@@ -93,3 +93,11 @@ export function getBookmark(fileName) {
 export function saveBookmark(fileName, bookmark) {
     setBookObject(fileName, 'bookmark', bookmark)
 }
+
+export function saveBookShelf(shelf) {
+    setLocalStorage('shelf', shelf)
+}
+
+export function getBookShelf() {
+    return getLocalStorage('shelf')
+}

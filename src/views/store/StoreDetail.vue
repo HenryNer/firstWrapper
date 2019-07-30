@@ -78,13 +78,17 @@
   import BookInfo from '../../components/detail/BookInfo'
   import Scroll from '../../components/common/Scroll'
   import Toast from '../../components/common/Toast'
+  import { storeHomeMixin } from '../../utils/mixin'
   import { detail } from '../../api/store'
   import { px2rem, realPx } from '../../utils/utils'
+  import { removeFromBookShelf, addToShelf } from '../../utils/store'
+  import { getBookShelf, saveBookShelf } from '../../utils/localStorage'
   import Epub from 'epubjs'
 
   global.ePub = Epub
 
   export default {
+    mixins: [storeHomeMixin],
     components: {
       DetailTitle,
       Scroll,
@@ -121,11 +125,13 @@
       author() {
         return this.metadata ? this.metadata.creator : ''
       },
+      //判断电子书是否已经加入书架
       inBookShelf() {
-        if (this.bookItem && this.bookShelf) {
+        if (this.bookItem && this.shelfList) {
           const flatShelf = (function flatten(arr) {
+            //扁平化
             return [].concat(...arr.map(v => v.itemList ? [v, ...flatten(v.itemList)] : v))
-          })(this.bookShelf).filter(item => item.type === 1)
+          })(this.shelfList).filter(item => item.type === 1)
           const book = flatShelf.filter(item => item.fileName === this.bookItem.fileName)
           return book && book.length > 0
         } else {
@@ -153,6 +159,14 @@
     },
     methods: {
       addOrRemoveShelf() {
+        if (this.inBookShelf) {
+          this.setShelfList(removeFromBookShelf(this.bookItem)).then(() => {
+            saveBookShelf(this.shelfList)
+          })
+        } else {
+          addToShelf(this.bookItem)
+          this.setShelfList(getBookShelf())
+        }
       },
       showToast(text) {
         this.toastText = text
@@ -160,7 +174,7 @@
       },
       readBook() {
         this.$router.push({
-          path: `/ebook/${this.categoryText}|${this.fileName}`
+          path: `/ebook/${this.bookItem.categoryText}|${this.fileName}`
         })
       },
       trialListening() {
@@ -266,6 +280,9 @@
     },
     mounted() {
       this.init()
+      if (!this.shelfList || this.shelfList.length === 0) {
+        this.getShelfList()
+      }
     }
   }
 </script>

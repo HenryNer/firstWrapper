@@ -1,3 +1,5 @@
+import { getBookShelf, saveBookShelf } from './localStorage'
+
 //卡片的css样式
 export const flapCardList = [
   {
@@ -179,4 +181,61 @@ export const categoryList = {
   'PoliticalScienceAndInternationalRelations': 20,
   'Psychology': 21,
   'Statistics': 22
+}
+
+//添加书架的增加框
+export function appendAddToShelf(list) {
+  list.push({
+    id: -1,
+    type: 3
+  })
+  return list
+}
+
+//移除书架的增加框
+export function removeAddFromShelf(list) {
+  return list.filter(item => item.type !== 3)
+}
+
+//返回书城首页
+export function gotoStoreHome(vue) {
+  vue.$router.push({
+    path: '/store/home'
+  })
+}
+
+//重计算书架列表id
+export function computeId(list) {
+  return list.map((book, index) => {
+    if (book.type !== 3) {
+      book.id = index + 1
+    }
+    if (book.itemList) {
+      book.itemList = computeId(book.itemList)
+    }
+    return book
+  })
+}
+
+//详情页点击移出书架从书架移除电子书
+export function removeFromBookShelf(book) {
+  return getBookShelf().filter(item => {
+    if (item.itemList) {
+      item.itemList = item.itemList.filter(subItem => {
+        return subItem.fileName !== book.fileName
+      })
+    }
+    return item.fileName !== book.fileName
+  })
+}
+
+//详情页点击移出书架从书架移除电子书
+export function addToShelf(book) {
+  let shelfList = getBookShelf()
+  shelfList = removeAddFromShelf(shelfList)
+  book.type = 1
+  shelfList.push(book)
+  shelfList = computeId(shelfList)
+  shelfList = appendAddToShelf(shelfList)
+  saveBookShelf(shelfList)
 }

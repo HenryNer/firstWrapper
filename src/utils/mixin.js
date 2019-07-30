@@ -1,7 +1,8 @@
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import { themeList, addCss, removeAllCss, getReadTimeByMinute } from './book'
-import { saveLocation, getBookmark } from './localStorage'
-
+import { saveLocation, getBookmark, getBookShelf, saveBookShelf } from './localStorage'
+import { appendAddToShelf, computeId, removeAddFromShelf } from './store'
+import { shelf } from '../api/store'
 export const publicMixin = {
     computed: {
         ...mapState(['offsetY'])
@@ -95,10 +96,10 @@ export const ebookMixin = {
 
 export const storeHomeMixin = {
     computed: {
-        ...mapState('store',['hotSearchOffsetY','flapCardVisible','isEditMode','shelfList','shelfSelected','shelfTitleVisible'])
+        ...mapState('store',['hotSearchOffsetY','flapCardVisible','isEditMode','shelfList','shelfSelected','shelfTitleVisible','shelfCategory','currentType'])
     },
     methods: {
-        ...mapActions('store',['setHotSearchOffsetY','setFlapCardVisible','setIsEditMode','setShelfList','setShelfSelected','setShelfTitleVisible']),
+        ...mapActions('store',['setHotSearchOffsetY','setFlapCardVisible','setIsEditMode','setShelfList','setShelfSelected','setShelfTitleVisible','setShelfCategory','setCurrentType']),
         showBookDetail(book) {
             //路由跳转
             this.$router.push({
@@ -108,6 +109,50 @@ export const storeHomeMixin = {
                     category: book.categoryText
                 }
             })
+        },
+        getCategoryList(title) {
+            this.getShelfList().then(() => {
+                const categoryList = this.shelfList.filter(book => {
+                    return book.type === 2 && book.title === title
+                })[0]
+                this.setShelfCategory(categoryList)
+            })
+        },
+        //获取图书列表
+        getShelfList() {
+            //判断图书列表是否进行了缓存，否则每次请求会导致操作后的列表不能保存
+            let shelfList = getBookShelf()
+            if (!shelfList) {
+                //向服务器请求
+                shelf().then(response => {
+                    if (response.status === 200 && response.data && response.data.bookList) {
+                        //增加一个书架的添加框
+                        shelfList = appendAddToShelf(response.data.bookList)
+                        saveBookShelf(shelfList)
+                        return this.setShelfList(shelfList)
+                    }
+                })
+            } else {
+                return this.setShelfList(shelfList)
+            }
+        },
+        //将分组中的电子书移出
+        moveOutOfGroup(cb) {
+            this.setShelfList(this.shelfList.map(book => {
+                if (book.type === 2 && book.itemList) {
+                  book.itemList = book.itemList.filter(subBook => !subBook.selected)
+                }
+                return book
+              })).then(() => {
+                let list = removeAddFromShelf(this.shelfList)
+                list = [].concat(list, ...this.shelfSelected)
+                list = appendAddToShelf(list)
+                list = computeId(list)
+                this.setShelfList(list).then(() => {
+                  this.simpleToast(this.$t('shelf.moveBookOutSuccess'))
+                  if (cb) cb()
+                })
+              })
         }
     }
 }

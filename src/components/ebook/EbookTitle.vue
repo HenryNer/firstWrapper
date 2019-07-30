@@ -26,6 +26,7 @@ export default {
     mixins: [ebookMixin],
     methods: {
         back() {
+            this.setMenuVisible(false)
             this.$router.go(-1)
         }
     }

@@ -89,6 +89,7 @@
         })
       }
     },
+    //请求图书列表资源
     created() {
       this.getList()
       this.titleText = this.$route.query.categoryText

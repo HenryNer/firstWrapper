@@ -46,7 +46,7 @@
                 scrollTop: 94,
                 //随机图书
                 random: null,
-                banner: null,
+                banner: '',
                 guessYouLike: null,
                 recommend: null,
                 featured: null,

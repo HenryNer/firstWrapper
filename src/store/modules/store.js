@@ -6,8 +6,10 @@ const store = {
         flapCardVisible: false,
         isEditMode: false, //是否进入编辑模式
         shelfList: [], //书架图书列表
-        shelfSelected: [1,2,3], //书架图书中选中的书
-        shelfTitleVisible: true //书架标题显示状态
+        shelfSelected: [], //书架图书中选中的书
+        shelfTitleVisible: true, //书架标题显示状态
+        shelfCategory: [], //书架分类列表数据
+        currentType: 1 //书架列表为1，书架分类列表为2
     },
     mutations: {
         set_hot_search_offsetY(state, payload) {
@@ -27,6 +29,12 @@ const store = {
         },
         set_is_edit_mode(state, payload) {
             state.isEditMode = payload
+        },
+        set_shelf_category(state, payload) {
+            state.shelfCategory = payload
+        },
+        set_current_type(state, payload) {
+            state.currentType = payload
         }
     },
     actions: {
@@ -47,6 +55,12 @@ const store = {
         },
         setIsEditMode(context, payload) {
             context.commit('set_is_edit_mode', payload)
+        },
+        setShelfCategory(context, payload) {
+            context.commit('set_shelf_category', payload)
+        },
+        setCurrentType(context, payload) {
+            context.commit('set_current_type', payload)
         }
     }
 }
